@@ -1,0 +1,48 @@
+# Node.js
+node_modules/
+
+# Angular build output
+/dist/
+/out-tsc/
+
+# IDEs and editors
+/.idea/
+/.vscode/
+/*.sublime-workspace
+/*.sublime-project
+
+# Environment files
+/src/environments/
+
+# npm logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Compiled JavaScript files
+*.js
+*.js.map
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+.DS_Store
+Thumbs.db
+
+# IDE project files
+.vscode/
+
+# Angular CLI generated files
+.angular/
+
+# Coverage output
+/coverage/
+
+# Temporary files
+/tmp/
+/*.tgz
+
+# Build artifacts
+/dist/
+/build/
