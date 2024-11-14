@@ -42,8 +42,8 @@ export class UserService {
   }
 
   // Delete user
-  deleteUser(user: User): Observable<any> {
-    return this.userHttpService.deleteUser(user).pipe(
+  deleteUser(userId: number): Observable<any> {
+    return this.userHttpService.deleteUser(userId).pipe(
       tap(response => {
         if (response) {
           console.log('User deleted successfully:', response);
@@ -51,6 +51,21 @@ export class UserService {
       }),
       catchError(error => {
         console.error('Error deleting user:', error);
+        return of(null);
+      })
+    );
+  }
+
+  // Bulk delete users by a list of IDs
+  bulkDeleteUsers(userIds: number[]): Observable<any> {
+    return this.userHttpService.bulkDeleteUsers(userIds).pipe(
+      tap(response => {
+        if (response) {
+          console.log("Users deleted successfully:", response);
+        }
+      }),
+      catchError(error => {
+        console.error('Error deleting users:', error);
         return of(null);
       })
     );

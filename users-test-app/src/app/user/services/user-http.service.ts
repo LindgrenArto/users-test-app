@@ -18,7 +18,7 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl).pipe(
       catchError(error => {
         console.error('Error fetching users:', error);
-        return of([]); // Return an empty array on error
+        return of([]);
       })
     );
   }
@@ -29,9 +29,8 @@ export class UserService {
       // Handling success
       catchError(error => {
         console.error('Error creating user:', error);
-        return of(null); // Return null on error
+        return of(null);
       }),
-      // Logging success in the observable pipeline
       tap((createdUser) => {
         if (createdUser) {
           console.log('User created successfully:', createdUser);
@@ -43,14 +42,26 @@ export class UserService {
   // Mock function for deleting a user
   deleteUser(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${userId}`).pipe(
-      // Handling success and logging
       tap(() => {
         console.log(`User with ID ${userId} deleted successfully.`);
       }),
-      // Error handling
       catchError(error => {
         console.error('Error deleting user:', error);
-        return of(); // Return empty observable on error
+        return of();
+      })
+    );
+  }
+
+  // Bulk delete users by a list of IDs
+  bulkDeleteUsers(userIds: number[]): Observable<any> {
+    const url = `${this.apiUrl}/multiple`;
+    return this.http.post<any>(url, { ids: userIds }).pipe(
+      tap(() => {
+        console.log(`Users  ${userIds} deleted successfully.`);
+      }),
+      catchError(error => {
+        console.error('Error deleting users:', error);
+        return of();
       })
     );
   }
