@@ -3,10 +3,17 @@
 
     <!-- Bulk delete section -->
     <div>
+
+        <!-- Button to navigate to the user creation form  -->
+        <button (click)="onAddUser()">Add New User</button>
+
         <button (click)="onBulkDelete()" [disabled]="selectedUsers.length === 0">
             Delete Selected Users
         </button>
+
+
     </div>
+
 
     <!-- User list table -->
     <table>

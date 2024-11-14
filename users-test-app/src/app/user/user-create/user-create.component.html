@@ -1,0 +1,56 @@
+<div class="container">
+    <h2>Create New User</h2>
+
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" [(ngModel)]="user.name" name="name" required />
+        </div>
+
+        <div class="form-group">
+            <label for="userName">User Name</label>
+            <input type="text" id="userName" class="form-control" [(ngModel)]="user.userName" name="userName"
+                required />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" id="street" class="form-control" [(ngModel)]="user.address.street" name="street"
+                required />
+        </div>
+
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" class="form-control" [(ngModel)]="user.address.city" name="city" required />
+        </div>
+
+        <div class="form-group">
+            <label for="zipcode">Zipcode</label>
+            <input type="text" id="zipcode" class="form-control" [(ngModel)]="user.address.zipcode" name="zipcode"
+                required />
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" class="form-control" [(ngModel)]="user.phone" name="phone" required />
+        </div>
+
+        <div class="form-group">
+            <label for="website">Website</label>
+            <input type="text" id="website" class="form-control" [(ngModel)]="user.website" name="website" required />
+        </div>
+
+        <div class="form-group">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" class="form-control" [(ngModel)]="user.company.name" name="company"
+                required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

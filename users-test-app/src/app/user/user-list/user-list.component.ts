@@ -110,6 +110,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.selectedUsers = [];
   }
 
+  onAddUser() {
+    this.router.navigate(['/user-create']);
+  }
 
   // Navigate to user details
   onUserClick(user: User) {

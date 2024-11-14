@@ -19,4 +19,13 @@ export class UserStateService {
         const updatedUsers = this.usersSubject.value.filter(user => user.id !== userId);
         this.setUsers(updatedUsers);
     }
+
+    addUser(user: User): void {
+        const currentUsers = this.usersSubject.value;
+
+        // Add the new user to the list
+        const updatedUsers = [...currentUsers, user];
+
+        this.setUsers(updatedUsers);
+    }
 }
