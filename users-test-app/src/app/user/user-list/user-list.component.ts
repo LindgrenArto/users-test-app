@@ -5,11 +5,19 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
 import { UserStateService } from '../services/user-state.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { FilterPipe } from '../pipes/filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule, MatToolbarModule, MatFormField,
+    FilterPipe, FormsModule, MatFormFieldModule,
+    MatInputModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
@@ -17,6 +25,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   users: User[] = [];
   selectedUsers: User[] = [];
   private userSubscription: Subscription | undefined;
+  searchTerm = '';
 
   constructor(
     private userService: UserService,

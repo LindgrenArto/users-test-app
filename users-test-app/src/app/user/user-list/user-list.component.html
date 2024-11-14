@@ -1,37 +1,22 @@
-<div class="container">
-    <h2>User List</h2>
+<div class="user-list-container">
+    <mat-toolbar class="user-list-toolbar">
+        <mat-form-field>
+            <input matInput placeholder="Search" [(ngModel)]="searchTerm" />
+        </mat-form-field>
+        <button mat-button (click)="onAddUser()">Add User</button>
+    </mat-toolbar>
 
-    <!-- Bulk delete section -->
-    <div>
-
-        <!-- Button to navigate to the user creation form  -->
-        <button (click)="onAddUser()">Add New User</button>
-
-        <button (click)="onBulkDelete()" [disabled]="selectedUsers.length === 0">
-            Delete Selected Users
-        </button>
-
-
+    <div class="user-cards-grid">
+        <mat-card *ngFor="let user of users | filter:searchTerm" class="user-card">
+            <mat-card-header>
+                <mat-card-title>{{ user.name }}</mat-card-title>
+                <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div>Company: {{ user.company.name }}</div>
+                <div>Phone: {{ user.phone }}</div>
+                <!-- Any other details you want to display -->
+            </mat-card-content>
+        </mat-card>
     </div>
-
-
-    <!-- User list table -->
-    <table>
-        <thead>
-            <tr>
-                <th><input type="checkbox" (change)="onSelectAll($event)" /></th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Company</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td><input type="checkbox" (change)="onSelectUser(user)" [checked]="isSelected(user)" /></td>
-                <td (click)="onUserClick(user)">{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.company.name }}</td>
-            </tr>
-        </tbody>
-    </table>
 </div>
