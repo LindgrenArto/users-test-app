@@ -1,8 +1,11 @@
 
 import { RouterOutlet } from '@angular/router';
 import { UserListComponent } from './user/user-list/user-list.component';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserStateService } from './user/services/user-state.service';
+import { UserService } from './user/services/user.service';
+import { User } from './user/models/user';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +14,16 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+
+// For mocking purposes
+export class AppComponent implements OnInit {
   title = 'users-test-app';
+  constructor(private userStateService: UserStateService,
+    private userService: UserService) { }
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.userStateService.setUsers(users);
+    });
+  }
 }
+

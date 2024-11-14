@@ -3,13 +3,14 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { UserHttpService } from './user-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
-  constructor(private userHttpService: UserService) { }
+  constructor(private userHttpService: UserHttpService) { }
 
   // Get all users
   getUsers(): Observable<User[]> {
@@ -44,10 +45,8 @@ export class UserService {
   // Delete user
   deleteUser(userId: number): Observable<any> {
     return this.userHttpService.deleteUser(userId).pipe(
-      tap(response => {
-        if (response) {
-          console.log('User deleted successfully:', response);
-        }
+      tap(() => {
+        console.log('User deleted successfully:');
       }),
       catchError(error => {
         console.error('Error deleting user:', error);
@@ -56,7 +55,7 @@ export class UserService {
     );
   }
 
-  // Bulk delete users by a list of IDs
+  // Bulk delete users by a list of IDs, this reflects the API implementation
   bulkDeleteUsers(userIds: number[]): Observable<any> {
     return this.userHttpService.bulkDeleteUsers(userIds).pipe(
       tap(response => {

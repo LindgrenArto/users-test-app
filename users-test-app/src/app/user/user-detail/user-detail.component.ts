@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
+import { UserStateService } from '../services/user-state.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,13 +18,15 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private userStateService: UserStateService
   ) { }
 
   ngOnInit(): void {
     const userId = this.route.snapshot.paramMap.get('id');
     if (userId) {
-      this.userSubscription = this.userService.getUsers().subscribe({
+      this.userSubscription = this.userStateService.users$.subscribe({
         next: (users: User[]) => {
           this.user = users.find(u => u.id === parseInt(userId, 10)) || null;
         },
@@ -37,8 +40,15 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  goBack() {
+  onDeleteUser(): void {
+    if (this.user) {
+      this.userStateService.deleteUser(this.user.id);
+      this.router.navigate(['']);
+    }
+  }
 
+  goBack() {
+    this.router.navigate(['']);
   }
 
   ngOnDestroy(): void {

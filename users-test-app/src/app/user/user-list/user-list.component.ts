@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
+import { UserStateService } from '../services/user-state.service';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
@@ -17,11 +20,16 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private userStateService: UserStateService
   ) { }
 
   ngOnInit() {
-    this.getUsers();
+    // this.getUsers(); Commented out for the mock deleting to work
+
+    this.userStateService.users$.subscribe(users => {
+      this.users = users;
+    });
   }
 
   // Fetch users from the service
@@ -63,7 +71,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Bulk delete users
+  /*
+  // Bulk delete users, if it were real
   onBulkDelete() {
     const selectedUserIds = this.selectedUsers.map(user => user.id); // Get an array of user IDs
     this.userService.bulkDeleteUsers(selectedUserIds).subscribe({
@@ -79,18 +88,28 @@ export class UserListComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Delete user
-  onDeleteUser(user: User) {
-    this.userService.deleteUser(user.id).subscribe({
-      next: () => {
-        console.log(`User ${user.name} deleted successfully`);
-        this.users = this.users.filter((u) => u !== user); // Remove user from list
-      },
-      error: (error) => {
-        console.error('Error deleting user', error);
-      }
-    });
+  // Delete user, if it were real
+  
+    onDeleteUser(user: User) {
+      this.userService.deleteUser(user.id).subscribe({
+        next: () => {
+          console.log(`User ${user.name} deleted successfully`);
+          this.users = this.users.filter((u) => u !== user); // Remove user from list
+        },
+        error: (error) => {
+          console.error('Error deleting user', error);
+        }
+      });
+    }
+    */
+
+  // Mock bulkDelete
+  onBulkDelete() {
+    this.users = this.users.filter(user => !this.selectedUsers.includes(user));
+    console.log('Bulk delete completed');
+    this.selectedUsers = [];
   }
+
 
   // Navigate to user details
   onUserClick(user: User) {

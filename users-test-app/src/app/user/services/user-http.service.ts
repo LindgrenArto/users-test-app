@@ -5,9 +5,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class UserService {
+export class UserHttpService {
 
   private apiUrl = 'https://jsonplaceholder.typicode.com/users';
 
