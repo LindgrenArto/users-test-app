@@ -47,7 +47,7 @@ export class UserService {
       tap(() => {
         console.log(`User with ID ${userId} deleted successfully.`);
       }),
-      // Error handling: log error and return observable with null value
+      // Error handling
       catchError(error => {
         console.error('Error deleting user:', error);
         return of(); // Return empty observable on error
