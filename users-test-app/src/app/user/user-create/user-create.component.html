@@ -1,56 +1,80 @@
 <div class="container">
-    <h2>Create New User</h2>
+    <mat-card class="user-create-card">
+        <mat-card-header>
+            <mat-card-title>Create a New User</mat-card-title>
+        </mat-card-header>
 
-    <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" [(ngModel)]="user.name" name="name" required />
-        </div>
+        <mat-card-content>
+            <div class="user-create-form">
+                <form (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.name" name="name" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="userName">User Name</label>
-            <input type="text" id="userName" class="form-control" [(ngModel)]="user.userName" name="userName"
-                required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>User Name</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.userName" name="userName" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" [(ngModel)]="user.email" name="email" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="street">Street</label>
-            <input type="text" id="street" class="form-control" [(ngModel)]="user.address.street" name="street"
-                required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Street</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.address.street" name="street" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="city">City</label>
-            <input type="text" id="city" class="form-control" [(ngModel)]="user.address.city" name="city" required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>City</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.address.city" name="city" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="zipcode">Zipcode</label>
-            <input type="text" id="zipcode" class="form-control" [(ngModel)]="user.address.zipcode" name="zipcode"
-                required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Zipcode</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.address.zipcode" name="zipcode" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" class="form-control" [(ngModel)]="user.phone" name="phone" required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Phone</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.phone" name="phone" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="website">Website</label>
-            <input type="text" id="website" class="form-control" [(ngModel)]="user.website" name="website" required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Website</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.website" name="website" required />
+                        </mat-form-field>
+                    </div>
 
-        <div class="form-group">
-            <label for="company">Company Name</label>
-            <input type="text" id="company" class="form-control" [(ngModel)]="user.company.name" name="company"
-                required />
-        </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Company Name</mat-label>
+                            <input matInput type="text" [(ngModel)]="user.company.name" name="company" required />
+                        </mat-form-field>
+                    </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+                    <div class="form-actions">
+                        <button mat-raised-button color="primary" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>

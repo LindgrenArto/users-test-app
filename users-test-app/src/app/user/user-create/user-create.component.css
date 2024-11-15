@@ -1,18 +1,57 @@
 .container {
-    margin-top: 20px;
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    padding: 20px 0;
 }
 
-h2 {
+
+.user-create-card {
+    display: flex;
+    align-items: center center;
+    height: auto;
+    width: 80%;
+    max-width: 500px;
+    margin-top: 0;
     margin-bottom: 20px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.user-create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-button {
+.full-width {
     width: 100%;
+    height: 40px;
+    display: flex;
+    padding: 13px 0;
+}
+
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center center;
+    gap: 4px;
+    width: 80%;
+    padding: 10px 0;
+}
+
+@media (max-width: 600px) {
+    .user-create-card {
+        width: 100%;
+        margin: 0 10px;
+        max-width: none;
+    }
 }

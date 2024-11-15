@@ -7,10 +7,14 @@ import { UserStateService } from '../services/user-state.service';
 import { ToolbarService } from '../ui/toolbar/toolbar-service';
 import { ToolbarAction } from '../ui/toolbar/toolbar-action';
 import { ToolbarOptions } from '../ui/toolbar/toolbar-options';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
+  imports: [MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
@@ -53,9 +57,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  goBack() {
-    this.router.navigate(['']);
-  }
 
   ngOnDestroy(): void {
     if (this.userSubscription) {

@@ -1,36 +1,38 @@
 <div class="container">
-    <h2>User Details</h2>
+    <mat-card class="user-detail-card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>person</mat-icon> {{ user?.name }}
+            </mat-card-title>
+        </mat-card-header>
 
-    <!-- Display user details in a flexible layout -->
-    <div class="user-detail">
-        <div class="user-detail-item">
-            <span>Name:</span>
-            <span>{{ user?.name }}</span>
-        </div>
-        <div class="user-detail-item">
-            <span>Email:</span>
-            <span>{{ user?.email }}</span>
-        </div>
-        <div class="user-detail-item">
-            <span>Phone:</span>
-            <span>{{ user?.phone }}</span>
-        </div>
-        <div class="user-detail-item">
-            <span>Website:</span>
-            <span>{{ user?.website }}</span>
-        </div>
-        <div class="user-detail-item">
-            <span>Address:</span>
-            <span>{{ user?.address?.street }}, {{ user?.address?.city }}, {{ user?.address?.zipcode }}</span>
-        </div>
-        <div class="user-detail-item">
-            <span>Company:</span>
-            <span>{{ user?.company?.name }}</span>
-        </div>
-    </div>
+        <mat-card-content>
+            <div class="user-detail-item">
+                <span><strong>Email:</strong></span>
+                <span>{{ user?.email }}</span>
+            </div>
+            <div class="user-detail-item">
+                <span><strong>Phone:</strong></span>
+                <span>{{ user?.phone }}</span>
+            </div>
+            <div class="user-detail-item">
+                <span><strong>Website:</strong></span>
+                <span>{{ user?.website }}</span>
+            </div>
+            <div class="user-detail-item">
+                <span><strong>Address:</strong></span>
+                <span>{{ user?.address?.street }}, {{ user?.address?.city }}, {{ user?.address?.zipcode }}</span>
+            </div>
+            <div class="user-detail-item">
+                <span><strong>Company:</strong></span>
+                <span>{{ user?.company?.name }}</span>
+            </div>
+        </mat-card-content>
 
-    <!-- Back button to return to the user list -->
-    <button class="back-button" (click)="goBack()">Back to User List</button>
-
-    <button class="back-button" (click)="onDeleteUser()">Delete</button>
+        <mat-card-actions class="action-class">
+            <button mat-raised-button color="warn" (click)="onDeleteUser()">
+                <mat-icon>delete</mat-icon> Delete
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </div>

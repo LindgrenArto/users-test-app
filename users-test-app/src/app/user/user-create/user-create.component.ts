@@ -3,16 +3,20 @@ import { Router } from '@angular/router';
 import { UserStateService } from '../services/user-state.service'; // Assuming you are using this service
 import { User } from '../models/user';
 import { GeolocationService } from '../services/geolocation.service';
-import { FormsModule } from '@angular/forms';
 import { ToolbarService } from '../ui/toolbar/toolbar-service';
 import { ToolbarOptions } from '../ui/toolbar/toolbar-options';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-create',
   standalone: true,
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule]
 })
 export class UserCreateComponent implements OnInit {
 
