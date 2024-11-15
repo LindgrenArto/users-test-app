@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStateService } from '../services/user-state.service'; // Assuming you are using this service
 import { User } from '../models/user';
 import { GeolocationService } from '../services/geolocation.service';
 import { FormsModule } from '@angular/forms';
+import { ToolbarService } from '../ui/toolbar/toolbar-service';
+import { ToolbarOptions } from '../ui/toolbar/toolbar-options';
 
 @Component({
   selector: 'app-user-create',
@@ -12,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./user-create.component.css'],
   imports: [FormsModule]
 })
-export class UserCreateComponent {
+export class UserCreateComponent implements OnInit {
 
   user: User = {
     id: 0,
@@ -41,8 +43,16 @@ export class UserCreateComponent {
   constructor(
     private userStateService: UserStateService,
     private router: Router,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private toolbar: ToolbarService
   ) { }
+
+
+  ngOnInit(): void {
+
+    this.toolbar.setToolbarOptions(new ToolbarOptions(true, 'Create User', []));
+  }
+
 
   // Function to handle form submission
   onSubmit() {

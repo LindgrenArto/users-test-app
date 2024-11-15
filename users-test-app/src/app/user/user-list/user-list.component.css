@@ -1,42 +1,37 @@
 .user-list-container {
-    padding: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .user-list-toolbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-.mat-form-field {
-    width: 200px;
+.search-field {
+    flex: 1;
+    max-width: 300px;
 }
 
-.user-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+.table-responsive {
+    overflow-x: auto;
 }
 
-.user-card {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+table {
+    width: 100%;
 }
 
-.user-card mat-card-header {
-    background-color: #f5f5f5;
-}
+@media (max-width: 768px) {
+    .user-list-toolbar {
+        flex-direction: column;
+    }
 
-.user-card mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
-}
-
-button {
-    margin-left: 10px;
+    .search-field {
+        width: 100%;
+    }
 }

@@ -1,23 +1,38 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
 import { UserStateService } from '../services/user-state.service';
-import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ToolbarService } from '../ui/toolbar/toolbar-service';
+import { ToolbarOptions } from '../ui/toolbar/toolbar-options';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatToolbarModule, MatFormField,
-    FilterPipe, FormsModule, MatFormFieldModule,
-    MatInputModule],
+  imports: [CommonModule,
+    MatToolbarModule,
+    MatFormField,
+    FilterPipe,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
+    MatSortModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
@@ -25,12 +40,18 @@ export class UserListComponent implements OnInit, OnDestroy {
   users: User[] = [];
   selectedUsers: User[] = [];
   private userSubscription: Subscription | undefined;
-  searchTerm = '';
+  dataSource = new MatTableDataSource<User>();
+  searchTerm: string = '';
+  displayedColumns: string[] = ['select', 'name', 'email', 'phone'];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort) sort: MatSort | undefined;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private userStateService: UserStateService
+    private userStateService: UserStateService,
+    private toolbar: ToolbarService
   ) { }
 
   ngOnInit() {
@@ -38,7 +59,29 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     this.userStateService.users$.subscribe(users => {
       this.users = users;
+
+      this.dataSource.data = this.users;
     });
+
+    this.toolbar.setToolbarOptions(new ToolbarOptions(false, 'User Control Panel', []));
+  }
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+
+  }
+
+  applyFilter() {
+    this.dataSource.filter = this.searchTerm.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   // Fetch users from the service
@@ -117,6 +160,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.users = this.users.filter(user => !this.selectedUsers.includes(user));
     console.log('Bulk delete completed');
     this.selectedUsers = [];
+    this.dataSource = new MatTableDataSource(this.users);
   }
 
   onAddUser() {

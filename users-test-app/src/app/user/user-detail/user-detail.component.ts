@@ -4,6 +4,9 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { Subscription } from 'rxjs';
 import { UserStateService } from '../services/user-state.service';
+import { ToolbarService } from '../ui/toolbar/toolbar-service';
+import { ToolbarAction } from '../ui/toolbar/toolbar-action';
+import { ToolbarOptions } from '../ui/toolbar/toolbar-options';
 
 @Component({
   selector: 'app-user-detail',
@@ -20,7 +23,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private userStateService: UserStateService
+    private userStateService: UserStateService,
+    private toolbar: ToolbarService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +42,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    this.toolbar.setToolbarOptions(new ToolbarOptions(true, 'User Details', []));
   }
 
   onDeleteUser(): void {

@@ -6,7 +6,7 @@
     <button *ngIf="options.backEnabled" mat-icon-button (click)="onNavigateBack()">
         <mat-icon>arrow_back</mat-icon>
     </button>
-    <span fxFlex>{{options.title}}</span>
+    <span class="title-class">{{options.title}}</span>
     <button mat-icon-button (click)="action.runAction()" *ngFor="let action of options.actions">
         <mat-icon>{{action.icon}}</mat-icon>
     </button>
