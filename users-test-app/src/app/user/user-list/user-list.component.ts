@@ -59,7 +59,6 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.getUsers(); Commented out for the mock deleting to work
 
-    console.log(this.selectedUserIds);
     this.userStateService.users$.subscribe(users => {
       this.users = users;
 
