@@ -28,7 +28,8 @@
                     </mat-checkbox>
                 </th>
                 <td mat-cell *matCellDef="let user">
-                    <mat-checkbox [(ngModel)]="user.selected" (change)="onSelectUser(user)"></mat-checkbox>
+                    <mat-checkbox (change)="onSelectUser(user)" [checked]="selectedUserIds.has(user.id)">
+                    </mat-checkbox>
                 </td>
             </ng-container>
 

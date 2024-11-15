@@ -144,7 +144,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     this.updateTableSelections();
 
-    console.log(this.selectedUserIds);
   }
 
   isSelected(user: User): boolean {
