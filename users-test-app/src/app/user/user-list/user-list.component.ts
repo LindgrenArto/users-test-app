@@ -44,8 +44,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
   displayedColumns: string[] = ['select', 'name', 'email', 'phone'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-  @ViewChild(MatSort) sort: MatSort | undefined;
+  selectedUserIds: Set<number> = new Set();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private userService: UserService,
@@ -57,6 +59,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.getUsers(); Commented out for the mock deleting to work
 
+    console.log(this.selectedUserIds);
     this.userStateService.users$.subscribe(users => {
       this.users = users;
 
@@ -99,30 +102,6 @@ export class UserListComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Select a single user
-  onSelectUser(user: User) {
-    const index = this.selectedUsers.indexOf(user);
-    if (index === -1) {
-      this.selectedUsers.push(user);
-    } else {
-      this.selectedUsers.splice(index, 1);
-    }
-  }
-
-  // Check if user is selected
-  isSelected(user: User): boolean {
-    return this.selectedUsers.includes(user);
-  }
-
-  // Select all users
-  onSelectAll(event: any) {
-    if (event.target.checked) {
-      this.selectedUsers = [...this.users];
-    } else {
-      this.selectedUsers = [];
-    }
-  }
-
   /*
   // Bulk delete users, if it were real
   onBulkDelete() {
@@ -155,13 +134,53 @@ export class UserListComponent implements OnInit, OnDestroy {
     }
     */
 
-  // Mock bulkDelete
-  onBulkDelete() {
-    this.users = this.users.filter(user => !this.selectedUsers.includes(user));
-    console.log('Bulk delete completed');
-    this.selectedUsers = [];
-    this.dataSource = new MatTableDataSource(this.users);
+
+  onSelectUser(user: User): void {
+    if (this.selectedUserIds.has(user.id)) {
+      this.selectedUserIds.delete(user.id);
+    } else {
+      this.selectedUserIds.add(user.id);
+    }
+
+    this.updateTableSelections();
+
+    console.log(this.selectedUserIds);
   }
+
+  isSelected(user: User): boolean {
+    return this.selectedUserIds.has(user.id);
+  }
+
+  onSelectAll(checked: boolean): void {
+    const pageUsers = this.dataSource.filteredData.slice(
+      this.paginator?.pageIndex * this.paginator?.pageSize || 0,
+      (this.paginator?.pageIndex + 1) * this.paginator?.pageSize || this.dataSource.filteredData.length
+    );
+
+    if (checked) {
+      pageUsers.forEach(user => this.selectedUserIds.add(user.id));
+    } else {
+      pageUsers.forEach(user => this.selectedUserIds.delete(user.id));
+    }
+
+
+    this.updateTableSelections();
+  }
+
+  updateTableSelections(): void {
+    // Update the table visual state
+    this.dataSource.data = [...this.dataSource.data];
+  }
+
+  onBulkDelete(): void {
+    this.users = this.users.filter(user => !this.selectedUserIds.has(user.id));
+    this.selectedUserIds.clear();
+
+    // Refresh the table data
+    this.dataSource.data = this.users;
+    console.log('Bulk delete completed');
+  }
+
 
   onAddUser() {
     this.router.navigate(['/user-create']);

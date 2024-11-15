@@ -11,7 +11,7 @@
         </button>
 
         <!-- Delete Button -->
-        <button mat-icon-button color="warn" (click)="onBulkDelete()" [disabled]="!selectedUsers.length"
+        <button mat-icon-button color="warn" (click)="onBulkDelete()" [disabled]="selectedUserIds.size === 0"
             aria-label="Delete Selected Users">
             <mat-icon>delete</mat-icon>
         </button>
@@ -21,15 +21,18 @@
     <div class="table-responsive">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
+            <!-- Select Column -->
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="onSelectAll($event.checked)"></mat-checkbox>
+                    <mat-checkbox (change)="onSelectAll($event.checked)">
+                    </mat-checkbox>
                 </th>
                 <td mat-cell *matCellDef="let user">
-                    <mat-checkbox [(ngModel)]="user.selected"></mat-checkbox>
+                    <mat-checkbox [(ngModel)]="user.selected" (change)="onSelectUser(user)"></mat-checkbox>
                 </td>
             </ng-container>
 
+            <!-- Name Column -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name</th>
                 <td mat-cell *matCellDef="let user" (click)="onUserClick(user)">
@@ -37,6 +40,7 @@
                 </td>
             </ng-container>
 
+            <!-- Email Column -->
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef>Email</th>
                 <td mat-cell *matCellDef="let user" (click)="onUserClick(user)">
@@ -44,6 +48,7 @@
                 </td>
             </ng-container>
 
+            <!-- Phone Column -->
             <ng-container matColumnDef="phone">
                 <th mat-header-cell *matHeaderCellDef>Phone</th>
                 <td mat-cell *matCellDef="let user" (click)="onUserClick(user)">
@@ -51,12 +56,14 @@
                 </td>
             </ng-container>
 
-            <!-- Table Header and Row Declarations -->
+            <!-- Header and Rows -->
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
+
     <!-- Paginator -->
-    <mat-paginator [length]="dataSource" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons></mat-paginator>
+    <mat-paginator [length]="dataSource.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons>
+    </mat-paginator>
 </div>

@@ -23,7 +23,6 @@
 .user-create-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
 }
 
 .form-group {
@@ -38,14 +37,22 @@
     padding: 13px 0;
 }
 
+.label-class {
+    font-size: 12px;
+    align-items: start;
+    justify-content: center;
+}
+
+mat-form-field.small {
+    --mat-form-field-container-height: 15px;
+    --mat-form-field-container-vertical-padding: 8px;
+}
 
 .form-actions {
     display: flex;
     align-items: center;
     justify-content: center center;
-    gap: 4px;
     width: 80%;
-    padding: 10px 0;
 }
 
 @media (max-width: 600px) {
