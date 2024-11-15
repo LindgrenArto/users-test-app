@@ -1,2 +1,28 @@
-<app-toolbar (MenuClick)="onMenuClick()"></app-toolbar>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav [mode]="'over'" [opened]="false" class="sidenav">
+        <!-- Sidenav content -->
+        <div>
+            <div fxLayout="column" fxLayoutAlign="center center" class="sidenav-user-area">
+                <div>
+                    <mat-icon class="sidenav-avatar" color="primary"> account_circle</mat-icon>
+                </div>
+                <div>
+                    <span>Test User</span>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div>
+                <mat-nav-list>
+                    <mat-list-item>
+                        <a routerLink="login">Sign out</a>
+                    </mat-list-item>
+                </mat-nav-list>
+            </div>
+        </div>
+    </mat-sidenav>
+    <!-- Toolbar -->
+    <app-toolbar (MenuClick)="sidenav.toggle()"></app-toolbar>
+
+    <!-- App -->
+    <router-outlet></router-outlet>
+</mat-sidenav-container>
