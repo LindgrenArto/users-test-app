@@ -10,13 +10,19 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-create',
   standalone: true,
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.css'],
-  imports: [FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule]
+  imports: [CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule]
 })
 export class UserCreateComponent implements OnInit {
 
