@@ -17,6 +17,7 @@ import { ToolbarService } from '../ui/toolbar/toolbar-service';
 import { ToolbarOptions } from '../ui/toolbar/toolbar-options';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-list',
@@ -32,7 +33,8 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatCheckboxModule,
     MatPaginatorModule,
-    MatSortModule],
+    MatSortModule,
+    MatSnackBarModule],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
@@ -53,7 +55,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private router: Router,
     private userStateService: UserStateService,
-    private toolbar: ToolbarService
+    private toolbar: ToolbarService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -171,12 +174,21 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   onBulkDelete(): void {
+    const count = this.selectedUserIds.size;
+
     this.users = this.users.filter(user => !this.selectedUserIds.has(user.id));
     this.selectedUserIds.clear();
 
     // Refresh the table data
     this.dataSource.data = this.users;
     console.log('Bulk delete completed');
+
+    // Show snackbar notification
+    this.snackBar.open(`${count} user(s) deleted successfully.`, 'OK!', {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center'
+    });
   }
 
 

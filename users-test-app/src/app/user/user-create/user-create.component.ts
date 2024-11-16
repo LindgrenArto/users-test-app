@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-create',
@@ -22,7 +23,8 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule]
+    MatButtonModule,
+    MatSnackBarModule]
 })
 export class UserCreateComponent implements OnInit {
 
@@ -54,7 +56,8 @@ export class UserCreateComponent implements OnInit {
     private userStateService: UserStateService,
     private router: Router,
     private geolocationService: GeolocationService,
-    private toolbar: ToolbarService
+    private toolbar: ToolbarService,
+    private snackBar: MatSnackBar
   ) { }
 
 
@@ -74,6 +77,13 @@ export class UserCreateComponent implements OnInit {
 
     // Add the user to the state
     this.userStateService.addUser(this.user);
+
+    // Show snackbar notification
+    this.snackBar.open(`User ${this.user.name} created! successfully.`, 'OK!', {
+      duration: 3000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'center'
+    });
 
     // Navigate back to the user list
     this.router.navigate(['/user-list']);
